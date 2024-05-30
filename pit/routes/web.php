@@ -46,3 +46,4 @@ Route::get('/enrollment-status', function () {
 })->name('enrollment-status');
 
 require __DIR__.'/auth.php';
+//
