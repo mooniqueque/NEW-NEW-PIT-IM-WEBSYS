@@ -1,4 +1,5 @@
 <?php
+
 use App\Models\AdmissionInfo;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -6,16 +7,13 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StudentDController;
 use Inertia\Inertia;
 use App\Http\Controllers\AdmissionInfoController;
-
+use App\Http\Controllers\PagesController;
+use App\Http\Controllers\Auth\LoginController;
 
 Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
+    return Inertia::render('welcome-page', [
     ]);
-});
+})->name('welcome-page');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
@@ -41,8 +39,43 @@ Route::get('/admin-dashboard', function () {
     return Inertia::render('AdminComponents/AllAdComps');
 })->name('admin.dashoard');
 
-Route::get('/enrollment-status', function () {
-    return Inertia::render('AdminComponents/EnrollmentStatus/App');
-})->name('enrollment-status');
+Route::get('/application-process', function () {
+    return Inertia::render('AdminComponents/Applications/App');
+})->name('application-process');
+
+
+Route::get('/welcome-page', function () {
+    return Inertia::render('WelcomePage/WelPage');
+})->name('welcome-page');
+
+
+Route::get('/login-page', [PagesController::class, 'showLoginPage'])->name('login-page');
+
+Route::post('/login', [LoginController::class, 'login']);
+
+
+// Dashboard routes for different user roles
+Route::get('/department-dashboard', function () {
+    return view('app');
+})->name('department.dashboard');
+
+Route::get('/cashier-dashboard', function () {
+    return view('app');
+})->name('cashier.dashboard');
+
+Route::get('/registrar-dashboard', function () {
+    return view('app');
+})->name('registrar.dashboard');
+
+use App\Http\Controllers\Auth\RegistrationController;
+
+Route::post('/register-page', [RegistrationController::class, 'register']);
+
+
+// routes/web.php
+use App\Http\Controllers\AdmissionHandlerController;
+
+Route::get('/admission-handlers', [AdmissionHandlerController::class, 'index']);
 
 require __DIR__.'/auth.php';
+
