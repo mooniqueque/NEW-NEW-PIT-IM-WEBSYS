@@ -1,9 +1,7 @@
 <?php
-
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 class AdmissionHandlers extends Migration
 {
@@ -16,9 +14,18 @@ class AdmissionHandlers extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
-            $table->string('password');
+            $table->string('password'); // Leave it as plain text
             $table->timestamps();
         });
+
+        // Hash the password for the initial record
+        DB::table('admission_handlers')->insert([
+            'name' => 'Aljo Nicolo Andina',
+            'email' => 'andina@admin.nnn',
+            'password' => bcrypt('iamsopogi'), // Hash the password
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
     }
 
     /**
@@ -26,6 +33,6 @@ class AdmissionHandlers extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('admission_handlers');
     }
-};
+}

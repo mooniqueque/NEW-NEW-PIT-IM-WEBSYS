@@ -15,10 +15,11 @@
         @viteReactRefresh
         @vite(['resources/js/app.jsx', "resources/js/Pages/{$page['component']}.jsx"])
         @vite(["resources/js/Pages/LoginForm.jsx"])
+       
         @inertiaHead
 
+        
         <script>
-   
     window.routes = {
         applicationProcess: "{{ url('/application-process') }}"
     };

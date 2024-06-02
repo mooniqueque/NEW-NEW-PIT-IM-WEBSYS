@@ -18,6 +18,13 @@ class Registrars extends Migration
         $table->string('password');
         $table->timestamps();
     });
+    DB::table('registrars')->insert([
+        'name' => 'John Patrick Awit',
+        'email' => 'johnawit@regis.nnn',
+        'password' => bcrypt('iamsopogi'), // Hash the password
+        'created_at' => now(),
+        'updated_at' => now(),
+    ]);
 }
 
     /**

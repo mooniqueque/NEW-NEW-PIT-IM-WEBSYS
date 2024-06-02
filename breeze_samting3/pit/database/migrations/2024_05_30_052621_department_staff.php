@@ -18,11 +18,15 @@ class DepartmentStaff extends Migration
             $table->string('password');
             $table->timestamps();
         });
-    }
-
-    /**
-     * Reverse the migrations.
-     */
+    
+    DB::table('department_staff')->insert([
+        'name' => 'Judison Claude Nunez',
+        'email' => 'judinunez@dept.nnn',
+        'password' => bcrypt('iamsopogi'), // Hash the password
+        'created_at' => now(),
+        'updated_at' => now(),
+    ]);
+}
     public function down(): void
     {
         //

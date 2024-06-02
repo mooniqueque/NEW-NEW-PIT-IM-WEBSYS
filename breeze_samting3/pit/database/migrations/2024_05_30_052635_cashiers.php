@@ -18,6 +18,14 @@ class Cashiers extends Migration
         $table->string('password');
         $table->timestamps();
     });
+
+    DB::table('cashiers')->insert([
+        'name' => 'Nicole Camara',
+        'email' => 'niccamara@cash.nnn',
+        'password' => bcrypt('iamsopretty'), // Hash the password
+        'created_at' => now(),
+        'updated_at' => now(),
+    ]);
 }
 
     /**

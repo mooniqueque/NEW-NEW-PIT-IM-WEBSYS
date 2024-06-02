@@ -1,14 +1,11 @@
 <?php
-
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Hash; // Import the Hash facade
 
 class StudentAccount extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up()
     {
         Schema::create('student_account', function (Blueprint $table) {
@@ -18,13 +15,21 @@ class StudentAccount extends Migration
             $table->string('password');
             $table->timestamps();
         });
+
+        DB::table('student_account')->insert([
+            'name' => 'Andreanne Monique Gorres',
+            'email' => 'amgorres@stud.nnn',
+            'password' => Hash::make('iamsopretty'), // Use Hash::make
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+        
     }
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
+    public function down()
     {
-        //
+        Schema::dropIfExists('student_account');
+        // Drop the admission_handlers table if needed
     }
-};
+}
+
